@@ -11,6 +11,15 @@ public class Task {
     private int priority;
     private boolean inProgress, done;
 
+    /**
+     * To be used for a new task
+     * @param title
+     * @param description
+     * @param category
+     * @param assignedTo
+     * @param dueDate
+     * @param priority
+     */
     public Task(String title, String description, String category, Person assignedTo, LocalDate dueDate, int priority) {
         setTitle(title);
         setDescription(description);
@@ -20,8 +29,19 @@ public class Task {
         setPriority(priority);
         inProgress = false;
         done = false;
+        creationDate = LocalDate.now();
     }
 
+    /**
+     * An existing task
+     * @param title
+     * @param description
+     * @param category
+     * @param assignedTo
+     * @param creationDate
+     * @param dueDate
+     * @param priority
+     */
     public Task(String title, String description, String category, Person assignedTo, LocalDate creationDate, LocalDate dueDate, int priority) {
         this(title,description,category,assignedTo,dueDate,priority);  //calls the other constructor
         setCreationDate(creationDate);
