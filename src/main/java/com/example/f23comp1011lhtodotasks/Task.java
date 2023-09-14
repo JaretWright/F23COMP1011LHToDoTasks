@@ -1,15 +1,17 @@
 package com.example.f23comp1011lhtodotasks;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.TreeSet;
 
+enum Status {CREATED, INPROGRESS, DONE}
+
 public class Task {
+
     private String title, description, category;
     private Person assignedTo;
     private LocalDate creationDate, dueDate;
     private int priority;
-    private boolean inProgress, done;
+    private Status status;
 
     /**
      * To be used for a new task
@@ -21,15 +23,14 @@ public class Task {
      * @param priority
      */
     public Task(String title, String description, String category, Person assignedTo, LocalDate dueDate, int priority) {
+        creationDate = LocalDate.now();
+        status = Status.CREATED;
         setTitle(title);
         setDescription(description);
         setCategory(category);
         setAssignedTo(assignedTo);
         setDueDate(dueDate);
         setPriority(priority);
-        inProgress = false;
-        done = false;
-        creationDate = LocalDate.now();
     }
 
     /**
@@ -133,12 +134,10 @@ public class Task {
      */
     public void setDueDate(LocalDate dueDate) {
         //test if it is an existing task
-        if (creationDate.isBefore(LocalDate.now()))
+        if (creationDate.isBefore(LocalDate.now()) || !dueDate.isBefore(LocalDate.now()))
             this.dueDate = dueDate;
-        else if (dueDate.isBefore(LocalDate.now()))
-            throw new IllegalArgumentException("due date cannot be before today");
         else
-            this.dueDate = dueDate;
+            throw new IllegalArgumentException("due date cannot be before today");
     }
 
     public int getPriority() {
@@ -152,19 +151,17 @@ public class Task {
             throw new IllegalArgumentException("Priority must be in the range of 1-3");
     }
 
-    public boolean isInProgress() {
-        return inProgress;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setInProgress(boolean inProgress) {
-        this.inProgress = inProgress;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
-    public boolean isDone() {
-        return done;
-    }
-
-    public void setDone(boolean done) {
-        this.done = done;
+    public String toString()
+    {
+        return String.format("%s assigned to %s",title,assignedTo);
     }
 }
+
