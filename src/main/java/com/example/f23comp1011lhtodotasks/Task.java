@@ -126,7 +126,10 @@ public class Task {
     }
 
     public void setPriority(int priority) {
-        this.priority = priority;
+        if (priority>=1 && priority<=3)
+            this.priority = priority;
+        else
+            throw new IllegalArgumentException("Priority must be in the range of 1-3");
     }
 
     public boolean isInProgress() {
