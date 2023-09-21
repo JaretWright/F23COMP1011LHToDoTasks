@@ -67,7 +67,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.example.f23comp1011lhtodotasks/com.example.f23comp1011lhtodotasks.HelloApplication
+                                com.example.f23comp1011lhtodotasks/com.example.f23comp1011lhtodotasks.Main
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
