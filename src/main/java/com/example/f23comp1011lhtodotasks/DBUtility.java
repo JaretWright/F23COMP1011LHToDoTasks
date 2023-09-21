@@ -1,6 +1,7 @@
 package com.example.f23comp1011lhtodotasks;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DBUtility {
 
@@ -50,5 +51,41 @@ public class DBUtility {
             responseMsg = e.getMessage();
         }
         return responseMsg;
+    }
+
+    /**
+     * This method will return an ArrayList of all valid users in the database
+     * @return
+     */
+    public static ArrayList<Person> getUsers()
+    {
+        ArrayList<Person> users = new ArrayList<>();
+
+        String sql = "SELECT * FROM users";
+        try(
+                Connection conn = DriverManager.getConnection(connectUrl, user,password);
+                Statement statement = conn.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql);
+                )
+        {
+            //loop over all the users in the result set and add Person objects to the ArrayList
+            while (resultSet.next())
+            {
+                String fullName = resultSet.getString("fullName");
+                String email = resultSet.getString("email");
+                try{
+                    Person person = new Person(fullName, email);
+                    users.add(person);
+                }catch (IllegalArgumentException e)
+                {
+                    System.out.printf("email: '%s' fullName: '%s' not valid ",email, fullName);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return users;
     }
 }
