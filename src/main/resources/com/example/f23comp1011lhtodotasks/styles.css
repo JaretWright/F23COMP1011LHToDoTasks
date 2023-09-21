@@ -1,0 +1,19 @@
+.root{
+    -fx-font-size: 22px;
+    -fx-font-family: sans-serif;
+    -fx-background-image: url("images/background.png");
+    -fx-background-size: cover;
+}
+
+#header {
+    -fx-font-size: 40px;
+}
+
+.label{
+    -fx-text-fill: white;
+}
+
+.button{
+    -fx-border-radius: 20pt;
+    -fx-background-radius: 20pt;
+}
