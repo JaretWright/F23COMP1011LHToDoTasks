@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -34,7 +35,7 @@ public class CreateTaskController implements Initializable {
     private ComboBox<Person> userComboBox;
 
     @FXML
-    void submitTask(ActionEvent event) {
+    void submitTask(ActionEvent event) throws SQLException {
         //check if all fields are populated, if yes, try to create a task
         if (allFieldsPopulated())
         {
@@ -47,7 +48,8 @@ public class CreateTaskController implements Initializable {
 
             try {
                 Task newTask = new Task(title, description, category, assignedTo, dueDate, priority);
-                msgLabel.setText(newTask.toString());
+                int taskID = DBUtility.saveTaskToDB(newTask);
+                msgLabel.setText("Task saved with id: " + taskID);
             }catch (IllegalArgumentException e)
             {
                 msgLabel.setText(e.getMessage());

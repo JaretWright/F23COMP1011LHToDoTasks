@@ -126,8 +126,8 @@ public class DBUtility {
 
         ResultSet resultSet = null;
 
-        String sql = "INSERT INTO tasks (title, description, category, creatationDate, dueDate, priority, status, email)" +
-                "?,?,?,?,?,?,?,?";
+        String sql = "INSERT INTO tasks (title, description, category, creationDate, dueDate, priority, status, email)" +
+                "VALUES (?,?,?,?,?,?,?,?)";
 
         //use the try...with resources block to catch exceptions and auto-close items inside of ()
         try (
