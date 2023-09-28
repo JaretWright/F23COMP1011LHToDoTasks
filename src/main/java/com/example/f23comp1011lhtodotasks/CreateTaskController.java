@@ -45,8 +45,13 @@ public class CreateTaskController implements Initializable {
             LocalDate dueDate = dueDatePicker.getValue();
             int priority = prioritySpinner.getValue();
 
-            Task newTask = new Task(title,description,category,assignedTo,dueDate,priority);
-            msgLabel.setText(newTask.toString());
+            try {
+                Task newTask = new Task(title, description, category, assignedTo, dueDate, priority);
+                msgLabel.setText(newTask.toString());
+            }catch (IllegalArgumentException e)
+            {
+                msgLabel.setText(e.getMessage());
+            }
         }
         else
             msgLabel.setText("Ensure ALL fields are populated");
@@ -56,7 +61,7 @@ public class CreateTaskController implements Initializable {
     {
         return !titleTextField.getText().isEmpty() &&
                 !descriptionTextArea.getText().isEmpty() &&
-                !categoryComboBox.getValue().isEmpty() &&
+                categoryComboBox.getValue() != null &&
                 userComboBox.getValue() != null;
     }
 
