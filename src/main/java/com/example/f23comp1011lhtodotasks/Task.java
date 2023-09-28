@@ -3,8 +3,6 @@ package com.example.f23comp1011lhtodotasks;
 import java.time.LocalDate;
 import java.util.TreeSet;
 
-enum Status {CREATED, INPROGRESS, DONE}
-
 public class Task {
 
     private String title, description, category;
