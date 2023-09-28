@@ -90,4 +90,32 @@ public class DBUtility {
         return users;
     }
 
+    /**
+     * This method returns all the valid categories from the Database
+     * @return
+     */
+    public static ArrayList<String> getCategories()
+    {
+        ArrayList<String> categories = new ArrayList<>();
+
+        String sql = "SELECT * FROM categories ORDER BY category";
+        try(
+                Connection conn = DriverManager.getConnection(connectUrl, user,password);
+                Statement statement = conn.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql);
+        )
+        {
+            //loop over all the users in the result set and add Person objects to the ArrayList
+            while (resultSet.next())
+            {
+                categories.add(resultSet.getString("category"));
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return categories;
+    }
+
 }
