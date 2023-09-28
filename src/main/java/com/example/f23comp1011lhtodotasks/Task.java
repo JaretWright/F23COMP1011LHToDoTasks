@@ -1,6 +1,7 @@
 package com.example.f23comp1011lhtodotasks;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class Task {
@@ -97,21 +98,14 @@ public class Task {
      * Tree -> this will automatically sort the objects
      * @return
      */
-    public static TreeSet<String> getCategories()
-    {
-        TreeSet<String> categories = new TreeSet<>();
-        categories.add("personal");
-        categories.add("work");
-        categories.add("school");
-        return categories;
-    }
 
     public void setCategory(String category) {
         category = category.trim().toLowerCase();
-        if (getCategories().contains(category))
+        ArrayList<String> categories = DBUtility.getCategories();
+        if (categories.contains(category))
             this.category = category;
         else
-            throw new IllegalArgumentException("category must be one of "+getCategories());
+            throw new IllegalArgumentException("category must be one of "+categories);
     }
 
     public Person getAssignedTo() {
