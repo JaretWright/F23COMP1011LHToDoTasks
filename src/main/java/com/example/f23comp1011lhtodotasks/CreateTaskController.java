@@ -35,11 +35,36 @@ public class CreateTaskController implements Initializable {
 
     @FXML
     void submitTask(ActionEvent event) {
+        //check if all fields are populated, if yes, try to create a task
+        if (allFieldsPopulated())
+        {
+            String title = titleTextField.getText().trim();
+            String description = descriptionTextArea.getText().trim();
+            String category = categoryComboBox.getValue();
+            Person assignedTo = userComboBox.getValue();
+            LocalDate dueDate = dueDatePicker.getValue();
+            int priority = prioritySpinner.getValue();
 
+            Task newTask = new Task(title,description,category,assignedTo,dueDate,priority);
+            msgLabel.setText(newTask.toString());
+        }
+        else
+            msgLabel.setText("Ensure ALL fields are populated");
+    }
+
+    private boolean allFieldsPopulated()
+    {
+        return !titleTextField.getText().isEmpty() &&
+                !descriptionTextArea.getText().isEmpty() &&
+                !categoryComboBox.getValue().isEmpty() &&
+                userComboBox.getValue() != null;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //make the label not visible to the user on initial load
+        msgLabel.setText("");
+
         //configure the user combobox to receive a list of users from the database
         userComboBox.getItems().addAll(DBUtility.getUsers());
 
