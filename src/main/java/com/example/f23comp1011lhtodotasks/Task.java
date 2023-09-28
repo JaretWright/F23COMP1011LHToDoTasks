@@ -94,6 +94,7 @@ public class Task {
     /**
      * List -> handle multiple objects, user can order the elements, can support duplicates
      * Set -> this prevents duplicates, the system sets the order
+     * Tree -> this will automatically sort the objects
      * @return
      */
     public static TreeSet<String> getCategories()
