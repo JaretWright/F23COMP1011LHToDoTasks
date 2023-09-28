@@ -17,3 +17,7 @@
     -fx-border-radius: 20pt;
     -fx-background-radius: 20pt;
 }
+
+.date-picker .month-year-pane .label{
+    -fx-text-fill: #332e31;
+}

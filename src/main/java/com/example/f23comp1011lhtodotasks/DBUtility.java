@@ -118,4 +118,49 @@ public class DBUtility {
         return categories;
     }
 
+    /**
+     * This method will save a Task object to the tasks table
+     */
+    public static int saveTaskToDB(Task task) throws SQLException {
+        int taskID = -1;
+
+        ResultSet resultSet = null;
+
+        String sql = "INSERT INTO tasks (title, description, category, creatationDate, dueDate, priority, status, email)" +
+                "?,?,?,?,?,?,?,?";
+
+        //use the try...with resources block to catch exceptions and auto-close items inside of ()
+        try (
+                Connection conn = DriverManager.getConnection(connectUrl, user, password);
+                PreparedStatement ps = conn.prepareStatement(sql, new String[]{"taskID"})
+        ) {
+            ps.setString(1, task.getTitle());
+            ps.setString(2,task.getDescription());
+            ps.setString(3,task.getCategory());
+            ps.setDate(4,Date.valueOf(task.getCreationDate()));
+            ps.setDate(5,Date.valueOf(task.getDueDate()));
+            ps.setInt(6,task.getPriority());
+            ps.setString(7, task.getStatus().toString());
+            ps.setString(8,task.getAssignedTo().getEmail());
+
+            ps.executeUpdate();
+
+            //loop over the resultSet to get the TaskID
+            resultSet = ps.getGeneratedKeys();
+
+            while (resultSet.next())
+                taskID = resultSet.getInt(1);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally {
+            if (resultSet != null)
+                resultSet.close();
+        }
+
+        return taskID;
+    }
+
+
 }
