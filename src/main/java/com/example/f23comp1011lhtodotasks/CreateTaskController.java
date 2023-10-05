@@ -49,7 +49,10 @@ public class CreateTaskController implements Initializable {
             try {
                 Task newTask = new Task(title, description, category, assignedTo, dueDate, priority);
                 int taskID = DBUtility.saveTaskToDB(newTask);
-                msgLabel.setText("Task saved with id: " + taskID);
+                if (taskID>0)
+                    msgLabel.setText("Task saved with id: " + taskID);
+                else
+                    msgLabel.setText("Failed to save");
             }catch (IllegalArgumentException e)
             {
                 msgLabel.setText(e.getMessage());
