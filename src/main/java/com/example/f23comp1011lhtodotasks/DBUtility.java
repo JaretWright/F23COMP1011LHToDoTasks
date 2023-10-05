@@ -1,6 +1,7 @@
 package com.example.f23comp1011lhtodotasks;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
@@ -162,5 +163,49 @@ public class DBUtility {
         return taskID;
     }
 
+    public static ArrayList<Task> getTasks()
+    {
+        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Person> users = getUsers();
+
+        String sql = "SELECT * FROM tasks ORDER BY taskID";
+        try(
+                Connection conn = DriverManager.getConnection(connectUrl, user,password);
+                Statement statement = conn.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql);
+        )
+        {
+            //loop over all the users in the result set and add Person objects to the ArrayList
+            while (resultSet.next())
+            {
+                String email = resultSet.getString("email");
+
+                //go through all the Person objects in the collection called users
+                //return the person that has the matching email
+                Person person = users.stream()
+                                    .filter(user -> user.getEmail().equalsIgnoreCase(email))
+                                    .findAny()
+                                    .orElse(null);
+                if (person != null)
+                {
+                    Task newTask = new Task(resultSet.getInt("taskID"),
+                            resultSet.getString("title"),
+                            resultSet.getString("description"),
+                            resultSet.getString("category"),
+                            person,
+                            resultSet.getDate("creationDate").toLocalDate(),
+                            resultSet.getDate("dueDate").toLocalDate(),
+                            resultSet.getInt("priority"),
+                            Status.valueOf(resultSet.getString("status")));
+                    tasks.add(newTask);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return tasks;
+    }
 
 }

@@ -56,6 +56,6 @@ public class TaskTableViewController implements Initializable {
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         priorityColumn.setCellValueFactory(new PropertyValueFactory<>("priority"));
 
-//        tableView.getItems().addAll(DBUtility.getAllTasks());
+        tableView.getItems().addAll(DBUtility.getTasks());
     }
 }
