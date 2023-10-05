@@ -6,6 +6,7 @@ import java.util.TreeSet;
 
 public class Task {
 
+    private int taskID;
     private String title, description, category;
     private Person assignedTo;
     private LocalDate creationDate, dueDate;
@@ -30,6 +31,26 @@ public class Task {
         setAssignedTo(assignedTo);
         setDueDate(dueDate);
         setPriority(priority);
+    }
+
+    /**
+     * This constructor should be used when retreiving a Task object from the database
+     */
+    public Task(int taskID, String title, String description, String category, Person assignedTo,
+                LocalDate creationDate, LocalDate dueDate, int priority, Status status) {
+        if (taskID >0)
+            this.taskID = taskID;
+        else
+            throw new IllegalArgumentException("taskID should be greater than 0");
+
+        setTitle(title);
+        setDescription(description);
+        this.category = category;  //accepting the input without calling the set method for performance reasons
+        setAssignedTo(assignedTo);
+        setCreationDate(creationDate);
+        setDueDate(dueDate);
+        setPriority(priority);
+        setStatus(status);
     }
 
     /**
@@ -98,7 +119,6 @@ public class Task {
      * Tree -> this will automatically sort the objects
      * @return
      */
-
     public void setCategory(String category) {
         category = category.trim().toLowerCase();
         ArrayList<String> categories = DBUtility.getCategories();
@@ -127,8 +147,11 @@ public class Task {
      */
     public void setDueDate(LocalDate dueDate) {
         //test if it is an existing task
-        if (creationDate.isBefore(LocalDate.now()) || !dueDate.isBefore(LocalDate.now()))
-            this.dueDate = dueDate;
+        if ((creationDate.isBefore(LocalDate.now()) || !dueDate.isBefore(LocalDate.now())
+         && (creationDate.isBefore(dueDate) || creationDate.isEqual(dueDate))))
+        {
+                this.dueDate = dueDate;
+        }
         else
             throw new IllegalArgumentException("due date cannot be before today");
     }

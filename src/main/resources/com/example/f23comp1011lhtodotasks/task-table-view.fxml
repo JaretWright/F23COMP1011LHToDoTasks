@@ -1,14 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.f23comp1011lhtodotasks.TaskTableViewController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.f23comp1011lhtodotasks.TaskTableViewController">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="1200.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label id="header" text="All Tasks" />
+            <TableView fx:id="tableView" prefHeight="548.0" prefWidth="1140.0">
+              <columns>
+                <TableColumn fx:id="taskIdColumn" prefWidth="119.0" text="Task ID" />
+                <TableColumn fx:id="titleColumn" prefWidth="202.0" text="Title" />
+                  <TableColumn fx:id="categoryColumn" prefWidth="202.0" text="Category" />
+                  <TableColumn fx:id="assignedColumn" prefWidth="202.0" text="Assigned To" />
+                  <TableColumn fx:id="priorityColumn" prefWidth="202.0" text="Priority" />
+                  <TableColumn fx:id="daysUntilDueColumn" prefWidth="202.0" text="Days Until Due" />
+                  <TableColumn fx:id="statusColumn" prefWidth="202.0" text="Status" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Label text="Filter">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="filterTextField" />
+                  <Button mnemonicParsing="false" onAction="#changeToChartsView" text="View Charts">
+                     <HBox.margin>
+                        <Insets left="500.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
+      </VBox>
+   </children>
 </AnchorPane>
