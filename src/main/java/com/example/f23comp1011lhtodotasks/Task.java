@@ -1,6 +1,7 @@
 package com.example.f23comp1011lhtodotasks;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
@@ -76,15 +77,19 @@ public class Task {
         this.creationDate = creationDate;
     }
 
+    public int getTaskID() {
+        return taskID;
+    }
+
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
-        if (lengthValidator(title, 30))
+        if (lengthValidator(title, 70))
             this.title = title;
         else
-            throw new IllegalArgumentException("title must be 1 to 30 characters");
+            throw new IllegalArgumentException("title must be 1 to 70 characters");
     }
 
     /**
@@ -178,6 +183,11 @@ public class Task {
     public String toString()
     {
         return String.format("%s assigned to %s",title,assignedTo);
+    }
+
+    public long getDaysUntilDue()
+    {
+        return ChronoUnit.DAYS.between(LocalDate.now(),dueDate);
     }
 }
 

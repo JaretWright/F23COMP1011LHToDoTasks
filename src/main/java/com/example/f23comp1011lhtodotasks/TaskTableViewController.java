@@ -20,7 +20,7 @@ public class TaskTableViewController implements Initializable {
     private TableColumn<Task, String> categoryColumn;
 
     @FXML
-    private TableColumn<Task, Integer> daysUntilDueColumn;
+    private TableColumn<Task, Long> daysUntilDueColumn;
 
     @FXML
     private TextField filterTextField;
@@ -50,7 +50,7 @@ public class TaskTableViewController implements Initializable {
         //connects the table columns to the specific data for each task
         assignedColumn.setCellValueFactory(new PropertyValueFactory<>("assignedTo"));//calls getAssignedTo()
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));//calls getCategory()
-        taskIdColumn.setCellValueFactory(new PropertyValueFactory<>("taskID"));
+        taskIdColumn.setCellValueFactory(new PropertyValueFactory<>("taskID"));//calls getTaskID()
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         daysUntilDueColumn.setCellValueFactory(new PropertyValueFactory<>("daysUntilDue"));//call getDaysUntilDue()
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
