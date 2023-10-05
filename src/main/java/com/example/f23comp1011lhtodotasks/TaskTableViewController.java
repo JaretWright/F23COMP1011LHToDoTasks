@@ -8,6 +8,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -41,8 +42,8 @@ public class TaskTableViewController implements Initializable {
     private TableColumn<Task, String> titleColumn;
 
     @FXML
-    void changeToChartsView(ActionEvent event) {
-
+    void changeToChartsView(ActionEvent event) throws IOException {
+        SceneChanger.changeScenes(event, "chart-view.fxml" );
     }
 
     @Override
