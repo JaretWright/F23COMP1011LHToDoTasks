@@ -189,5 +189,16 @@ public class Task {
     {
         return ChronoUnit.DAYS.between(LocalDate.now(),dueDate);
     }
+
+    /**
+     * This method will search the taskID, title and category for the searchTerm
+     */
+    public boolean contains(String searchTerm)
+    {
+        searchTerm = searchTerm.toLowerCase();
+        return title.toLowerCase().contains(searchTerm) ||
+                category.toLowerCase().contains(searchTerm) ||
+                Integer.toString(taskID).equals(searchTerm);
+    }
 }
 

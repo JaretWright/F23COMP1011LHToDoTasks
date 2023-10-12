@@ -46,6 +46,12 @@
         </dependency>
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>openjfx</id>
+            <url>https://repo.javafx.io</url>
+        </repository>
+    </repositories>
     <build>
         <plugins>
             <plugin>
