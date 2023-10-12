@@ -43,9 +43,15 @@
                   <CheckBox fx:id="priority3CheckBox" layoutX="1019.0" layoutY="15.0" mnemonicParsing="false" text="Priority 3" />
                   <Button mnemonicParsing="false" onAction="#changeToChartsView" text="View Charts">
                      <HBox.margin>
-                        <Insets left="200.0" />
+                        <Insets />
                      </HBox.margin>
                   </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" spacing="30.0">
+               <children>
+                  <Label fx:id="avgOverDueLabel" text="Avg Days OverDue: 0" />
+                  <Label fx:id="tasksShowingLabel" text="Tasks Showing: 10" />
                </children>
             </HBox>
          </children>

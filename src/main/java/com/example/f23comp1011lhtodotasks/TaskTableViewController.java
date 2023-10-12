@@ -11,9 +11,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.OptionalDouble;
 import java.util.ResourceBundle;
 
 public class TaskTableViewController implements Initializable {
+
+    @FXML
+    private Label tasksShowingLabel;
+
+    @FXML
+    private Label avgOverDueLabel;
 
     @FXML
     private CheckBox priority1CheckBox;
@@ -100,6 +107,8 @@ public class TaskTableViewController implements Initializable {
         filterTextField.textProperty().addListener((observableValue, oldValue, newValue) -> {
             filteredTasks(newValue);
         });
+
+        updateLabels();
     }
 
     /**
@@ -115,5 +124,18 @@ public class TaskTableViewController implements Initializable {
                                                                                      priority2CheckBox.isSelected(),
                                                                                      priority3CheckBox.isSelected()))  //can have as many steps as you
                                              .toList());
+        updateLabels();
+    }
+
+    private void updateLabels()
+    {
+        tasksShowingLabel.setText("Tasks Showing: "+tableView.getItems().size());
+        OptionalDouble avgOverDue = tableView.getItems().stream()
+                                                        .filter(task -> task.getStatus() != Status.DONE)
+                                                        .filter(task -> task.getDaysUntilDue() < 0)
+                                                        .mapToLong(task -> task.getDaysUntilDue())
+                                                        .average();
+
+        avgOverDueLabel.setText("Avg Overdue: "+String.format("%.1f",avgOverDue.isPresent()?avgOverDue.getAsDouble():0));
     }
 }
