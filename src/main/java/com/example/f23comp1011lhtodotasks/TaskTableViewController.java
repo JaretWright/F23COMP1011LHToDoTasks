@@ -5,10 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
@@ -19,7 +16,13 @@ import java.util.ResourceBundle;
 public class TaskTableViewController implements Initializable {
 
     @FXML
-    private ComboBox<Integer> priorityComboBox;
+    private CheckBox priority1CheckBox;
+
+    @FXML
+    private CheckBox priority2CheckBox;
+
+    @FXML
+    private CheckBox priority3CheckBox;
 
     @FXML
     private TableColumn<Task, Person> assignedColumn;
@@ -60,11 +63,25 @@ public class TaskTableViewController implements Initializable {
         allTasks = DBUtility.getTasks();
 
         //configure the comboBox to have the priority values defined in the DB
-        priorityComboBox.getItems().addAll(allTasks.stream()
-                                                .mapToInt(task -> task.getPriority())
-                                                .distinct()
-                                                .sorted()
-                                                .boxed().toList());
+//        priorityComboBox.getItems().addAll(allTasks.stream()
+//                                                .mapToInt(task -> task.getPriority())
+//                                                .distinct()
+//                                                .sorted()
+//                                                .boxed().toList());
+
+        //configure the checkbox to filter for the priorities
+        priority1CheckBox.setSelected(true);
+        priority2CheckBox.setSelected(true);
+        priority3CheckBox.setSelected(true);
+
+        priority1CheckBox.addEventHandler(ActionEvent.ACTION,
+                event -> filteredTasks(filterTextField.getText()));
+
+        priority2CheckBox.addEventHandler(ActionEvent.ACTION,
+                event -> filteredTasks(filterTextField.getText()));
+
+        priority3CheckBox.addEventHandler(ActionEvent.ACTION,
+                event -> filteredTasks(filterTextField.getText()));
 
         //connects the table columns to the specific data for each task
         assignedColumn.setCellValueFactory(new PropertyValueFactory<>("assignedTo"));//calls getAssignedTo()
@@ -94,8 +111,9 @@ public class TaskTableViewController implements Initializable {
     {
         tableView.getItems().clear();
         tableView.getItems().addAll(allTasks.stream()
-                                             .filter(task -> task.contains(searchTerm))  //can have as many steps as you
-                                                                                        //need in the middle
+                                             .filter(task -> task.contains(searchTerm, priority1CheckBox.isSelected(),
+                                                                                     priority2CheckBox.isSelected(),
+                                                                                     priority3CheckBox.isSelected()))  //can have as many steps as you
                                              .toList());
     }
 }

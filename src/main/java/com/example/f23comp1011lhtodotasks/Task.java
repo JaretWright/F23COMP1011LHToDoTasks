@@ -193,12 +193,14 @@ public class Task {
     /**
      * This method will search the taskID, title and category for the searchTerm
      */
-    public boolean contains(String searchTerm)
+    public boolean contains(String searchTerm, boolean priority1, boolean priority2, boolean priority3)
     {
-        searchTerm = searchTerm.toLowerCase();
-        return title.toLowerCase().contains(searchTerm) ||
-                category.toLowerCase().contains(searchTerm) ||
-                Integer.toString(taskID).contains(searchTerm);
+            searchTerm = searchTerm.toLowerCase();
+            return (title.toLowerCase().contains(searchTerm) ||
+                    category.toLowerCase().contains(searchTerm) ||
+                    Integer.toString(taskID).contains(searchTerm)) &&
+                    (priority1 && priority==1 || priority2 && priority ==2 ||
+                            priority3 && priority==3);
     }
 }
 

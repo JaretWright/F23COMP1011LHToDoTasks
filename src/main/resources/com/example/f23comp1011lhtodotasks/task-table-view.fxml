@@ -2,7 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -38,10 +38,12 @@
                      </HBox.margin>
                   </Label>
                   <TextField fx:id="filterTextField" />
-                  <ComboBox fx:id="priorityComboBox" prefHeight="40.0" prefWidth="224.0" promptText="Priority Filter" />
+                  <CheckBox fx:id="priority1CheckBox" mnemonicParsing="false" text="Prority 1" />
+                  <CheckBox fx:id="priority2CheckBox" layoutX="355.0" layoutY="15.0" mnemonicParsing="false" text="Priority 2" />
+                  <CheckBox fx:id="priority3CheckBox" layoutX="1019.0" layoutY="15.0" mnemonicParsing="false" text="Priority 3" />
                   <Button mnemonicParsing="false" onAction="#changeToChartsView" text="View Charts">
                      <HBox.margin>
-                        <Insets left="400.0" />
+                        <Insets left="200.0" />
                      </HBox.margin>
                   </Button>
                </children>
