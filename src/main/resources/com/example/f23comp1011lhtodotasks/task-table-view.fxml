@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -9,7 +10,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.f23comp1011lhtodotasks.TaskTableViewController">
    <children>
@@ -30,17 +30,18 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <HBox alignment="CENTER_LEFT">
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
                   <Label text="Filter">
                      <HBox.margin>
-                        <Insets right="5.0" />
+                        <Insets />
                      </HBox.margin>
                   </Label>
                   <TextField fx:id="filterTextField" />
+                  <ComboBox fx:id="priorityComboBox" prefHeight="40.0" prefWidth="224.0" promptText="Priority Filter" />
                   <Button mnemonicParsing="false" onAction="#changeToChartsView" text="View Charts">
                      <HBox.margin>
-                        <Insets left="500.0" />
+                        <Insets left="400.0" />
                      </HBox.margin>
                   </Button>
                </children>

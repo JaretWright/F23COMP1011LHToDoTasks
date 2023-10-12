@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -16,6 +17,9 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class TaskTableViewController implements Initializable {
+
+    @FXML
+    private ComboBox<Integer> priorityComboBox;
 
     @FXML
     private TableColumn<Task, Person> assignedColumn;
@@ -55,6 +59,13 @@ public class TaskTableViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         allTasks = DBUtility.getTasks();
 
+        //configure the comboBox to have the priority values defined in the DB
+        priorityComboBox.getItems().addAll(allTasks.stream()
+                                                .mapToInt(task -> task.getPriority())
+                                                .distinct()
+                                                .sorted()
+                                                .boxed().toList());
+
         //connects the table columns to the specific data for each task
         assignedColumn.setCellValueFactory(new PropertyValueFactory<>("assignedTo"));//calls getAssignedTo()
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));//calls getCategory()
@@ -70,8 +81,7 @@ public class TaskTableViewController implements Initializable {
 //        FilterTextChangeListener tcl = new FilterTextChangeListener();
         //an anonymous inner class
         filterTextField.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            tableView.getItems().clear();
-            tableView.getItems().addAll(filteredTasks(newValue));
+            filteredTasks(newValue);
         });
     }
 
@@ -80,15 +90,12 @@ public class TaskTableViewController implements Initializable {
      * @param searchTerm
      * @return
      */
-    private ArrayList<Task> filteredTasks(String searchTerm)
+    private void filteredTasks(String searchTerm)
     {
-        ArrayList<Task> filteredTasks = new ArrayList<>();
-
-        for (Task task: allTasks)
-        {
-            if (task.contains(searchTerm))
-                filteredTasks.add(task);
-        }
-        return filteredTasks;
+        tableView.getItems().clear();
+        tableView.getItems().addAll(allTasks.stream()
+                                             .filter(task -> task.contains(searchTerm))  //can have as many steps as you
+                                                                                        //need in the middle
+                                             .toList());
     }
 }

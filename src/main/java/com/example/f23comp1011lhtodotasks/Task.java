@@ -198,7 +198,7 @@ public class Task {
         searchTerm = searchTerm.toLowerCase();
         return title.toLowerCase().contains(searchTerm) ||
                 category.toLowerCase().contains(searchTerm) ||
-                Integer.toString(taskID).equals(searchTerm);
+                Integer.toString(taskID).contains(searchTerm);
     }
 }
 
