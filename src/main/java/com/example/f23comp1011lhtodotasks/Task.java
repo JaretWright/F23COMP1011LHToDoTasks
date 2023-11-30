@@ -85,6 +85,7 @@ public class Task {
         return title;
     }
 
+
     public void setTitle(String title) {
         if (lengthValidator(title, 70))
             this.title = title;

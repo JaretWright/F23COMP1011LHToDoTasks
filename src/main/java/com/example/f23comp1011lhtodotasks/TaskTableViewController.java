@@ -1,5 +1,7 @@
 package com.example.f23comp1011lhtodotasks;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -8,9 +10,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.OptionalDouble;
 import java.util.ResourceBundle;
 
@@ -68,6 +73,24 @@ public class TaskTableViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         allTasks = DBUtility.getTasks();
+
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
+                .create();
+
+        try (
+            Formatter formatter = new Formatter("tasks.json");
+            )
+        {
+
+            formatter.format(gson.toJson(allTasks));
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+
 
         //configure the comboBox to have the priority values defined in the DB
 //        priorityComboBox.getItems().addAll(allTasks.stream()
